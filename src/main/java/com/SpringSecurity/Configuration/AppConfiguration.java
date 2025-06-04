@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.SpringSecurity.Service.custmerservice;
+import com.SpringSecurity.Service.customerservice;
 
 import lombok.SneakyThrows;
 
@@ -20,7 +20,7 @@ import lombok.SneakyThrows;
 public class AppConfiguration {
 	
 	@Autowired
-	private custmerservice service;
+	private customerservice service;
 	
 	@Bean
 	public BCryptPasswordEncoder pwdEncoder()
@@ -60,8 +60,10 @@ public class AppConfiguration {
 			.permitAll()
 			.anyRequest()
 			.authenticated();
+		    })
+		    .oauth2Login(oauth2 -> oauth2
+					.defaultSuccessUrl("https://www.google.com", true));
 
-		  });
 		    return http.csrf().disable().build();
 	}
 }
