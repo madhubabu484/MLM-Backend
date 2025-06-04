@@ -15,7 +15,7 @@ import com.SpringSecurity.Service.customerservice;
 
 @RestController
 public class custmerController {
-	
+
 	@Autowired
 	private customerservice service;
 	
@@ -25,29 +25,29 @@ public class custmerController {
 	@PostMapping("/login")
 	public ResponseEntity<String> logincustmer(@RequestBody Customer cu)
 	{
-		 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(cu.getEmail(), cu.getPassword());
-		 
-		        // Now we are checking auttntication for use authmanager responsible for checking authenticationManager.
-		 System.out.println(token);
-Authentication  authenticate = authmanager.authenticate(token);
-	
-	boolean status = authenticate.isAuthenticated();
-	
-	if(status)
-	{
-		return new ResponseEntity<String>("Sucessfully Login",HttpStatus.OK);
-		
-	}
-	
-	else {
-		
-		return new ResponseEntity<String>("Falied",HttpStatus. BAD_REQUEST);		
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(cu.getEmail(), cu.getPassword());
 
-		
+		// Now we are checking auttntication for use authmanager responsible for checking authenticationManager.
+		System.out.println(token);
+		Authentication  authenticate = authmanager.authenticate(token);
+
+		boolean status = authenticate.isAuthenticated();
+
+		if(status)
+		{
+			return new ResponseEntity<String>("Sucessfully Login",HttpStatus.OK);
+
+		}
+
+		else {
+
+			return new ResponseEntity<String>("Falied",HttpStatus. BAD_REQUEST);		
+
+
+		}
+
+
 	}
-	
-	
-}
 	@PostMapping("/register")
 	public ResponseEntity<String> registercustmer(@RequestBody Customer c )
 	{ 
@@ -63,7 +63,7 @@ Authentication  authenticate = authmanager.authenticate(token);
 		    	 
 		    	    return  new ResponseEntity<>("Wrong Credentlas" , HttpStatus.BAD_GATEWAY);
 		     }
-		     
+
 	}
-		     
+
 }
