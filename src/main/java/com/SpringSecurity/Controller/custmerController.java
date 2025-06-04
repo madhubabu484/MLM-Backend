@@ -8,23 +8,22 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringSecurity.Entity.custmer;
-import com.SpringSecurity.Service.custmerservice;
+import com.SpringSecurity.Entity.Customer;
+import com.SpringSecurity.Service.customerservice;
 
 @RestController
 public class custmerController {
 	
 	@Autowired
-	private custmerservice service;
+	private customerservice service;
 	
 	@Autowired
 	private AuthenticationManager authmanager;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> logincustmer(@RequestBody custmer cu)
+	public ResponseEntity<String> logincustmer(@RequestBody Customer cu)
 	{
 		 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(cu.getEmail(), cu.getPassword());
 		 
@@ -50,9 +49,9 @@ Authentication  authenticate = authmanager.authenticate(token);
 	
 }
 	@PostMapping("/register")
-	public ResponseEntity<String> registercustmer(@RequestBody custmer c )
+	public ResponseEntity<String> registercustmer(@RequestBody Customer c )
 	{ 
-		     boolean status = service.savecustmer(c);
+		     boolean status = service.savecustomer(c);
 		     
 		     if(status)
 		     {

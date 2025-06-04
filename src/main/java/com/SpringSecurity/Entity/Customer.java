@@ -6,16 +6,15 @@ import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
 
 @Entity
-@Table(name = "Custmer")  // You might want to fix the spelling to "Customer"
+@Table(name = "Customer")  
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class custmer {
+public class Customer {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cid")
-    private Integer cid;
+    private String cid;
 
     @Column(name = "name")
     private String name;
@@ -25,4 +24,6 @@ public class custmer {
 
     @Column(name = "password")
     private String password;
-}
+
+
+	}
