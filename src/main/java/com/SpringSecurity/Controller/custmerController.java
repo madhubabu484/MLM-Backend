@@ -1,14 +1,18 @@
 package com.SpringSecurity.Controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.SpringSecurity.Entity.custmer;
@@ -64,7 +68,28 @@ public class custmerController {
 
 			return  new ResponseEntity<>("Wrong Credentlas" , HttpStatus.BAD_GATEWAY);
 		}
-
-	}
-
+		
+	}	
+	    @GetMapping("/custmer")
+	    public ResponseEntity<?> findByid(@RequestParam ("cid") int cid)
+	 {
+		 custmer c1 = service.findByid(cid);
+	
+		 {
+			if(c1!=null)
+			{
+				return ResponseEntity.status(HttpStatus.FOUND)
+						             .body(c1);
+			}
+			
+			else {
+				
+				    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+				    		             .body("custmer is Not Found with the iud feteched with the Id: "+cid);
+			}
+			 
+		 }
+		 
+	 }
 }
+	     

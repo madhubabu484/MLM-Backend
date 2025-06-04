@@ -44,5 +44,17 @@ public class custmerservice implements UserDetailsService {
 		     
 		         return savedCustmer.getCid() != null ;    
 	}
+	
+	
+	    public custmer findByid(int cid)
+	    {
+	    	
+	    	  return repo.findById(cid)
+	    			     .orElseThrow(()-> new RuntimeException("custmer is not found  with id the:"+cid));
+	
+	
 
+		      }
+	  
+	    
 }
