@@ -6,12 +6,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringSecurity.Entity.custmer;
+import com.SpringSecurity.Entity.Custmer;
 import com.SpringSecurity.Service.custmerservice;
 
 @RestController
@@ -24,7 +27,7 @@ public class custmerController {
 	private AuthenticationManager authmanager;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> logincustmer(@RequestBody custmer cu)
+	public ResponseEntity<String> logincustmer(@RequestBody Custmer cu)
 	{
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(cu.getEmail(), cu.getPassword());
 
@@ -50,7 +53,7 @@ public class custmerController {
 
 	}
 	@PostMapping("/register")
-	public ResponseEntity<String> registercustmer(@RequestBody custmer c )
+	public ResponseEntity<String> registercustmer(@RequestBody Custmer c )
 	{ 
 		boolean status = service.savecustmer(c);
 
@@ -66,5 +69,12 @@ public class custmerController {
 		}
 
 	}
+	
+	@GetMapping("/custmer")
+	public ResponseEntity<?> findByid(@RequestParam("cid") int cid) {
+	    Custmer c2 = service.findByid(cid); // make sure this method works
 
+	    return ResponseEntity.status(HttpStatus.FOUND).body(c2);
+
+}
 }
