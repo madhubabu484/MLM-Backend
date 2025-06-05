@@ -1,7 +1,5 @@
 package com.SpringSecurity.Controller;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,26 +7,25 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.SpringSecurity.Entity.custmer;
-import com.SpringSecurity.Service.custmerservice;
+import com.SpringSecurity.Entity.Customer;
+import com.SpringSecurity.Service.customerservice;
 
 @RestController
 public class custmerController {
 
 	@Autowired
-	private custmerservice service;
-
+	private customerservice service;
+	
 	@Autowired
 	private AuthenticationManager authmanager;
 
 	@PostMapping("/login")
-	public ResponseEntity<String> logincustmer(@RequestBody custmer cu)
+	public ResponseEntity<String> logincustmer(@RequestBody Customer cu)
 	{
 		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(cu.getEmail(), cu.getPassword());
 
@@ -54,9 +51,10 @@ public class custmerController {
 
 	}
 	@PostMapping("/register")
-	public ResponseEntity<String> registercustmer(@RequestBody custmer c )
+	public ResponseEntity<String> registercustmer(@RequestBody Customer c )
 	{ 
-		boolean status = service.savecustmer(c);
+
+		boolean status = service.savecustomer(c);
 
 		if(status)
 		{
@@ -70,26 +68,31 @@ public class custmerController {
 		}
 		
 	}	
-	    @GetMapping("/custmer")
-	    public ResponseEntity<?> findByid(@RequestParam ("cid") int cid)
-	 {
-		 custmer c1 = service.findByid(cid);
+
+
+
+            @GetMapping("/custmer")
+                public ResponseEntity<?> getbyid(@RequestParam  int cid)
+           {
+            	Customer c2 = service.fi(cid); // ✅ Use the correct class name
+           
+ {
+	if(c2!=null)
+	{
+		return ResponseEntity.status(HttpStatus.FOUND)
+				             .body(c2);
+	}
 	
-		 {
-			if(c1!=null)
-			{
-				return ResponseEntity.status(HttpStatus.FOUND)
-						             .body(c1);
-			}
-			
-			else {
-				
-				    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
-				    		             .body("custmer is Not Found with the iud feteched with the Id: "+cid);
-			}
-			 
-		 }
-		 
-	 }
+	else {
+		
+		    return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE)
+		    		             .body("custmer is Not Found with the iud feteched with the Id: "+cid);
+	}
+	 
+ }
+ 
 }
-	     
+}
+
+
+
