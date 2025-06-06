@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.SpringSecurity.CustomExceptions.CustmerNameNotFoundException;
 import com.SpringSecurity.Entity.Custmer;
 import com.SpringSecurity.Repository.custmerrepo;
 
@@ -53,6 +54,23 @@ public class custmerservice implements UserDetailsService {
 	        }
 
 	        return c1;
+	    }
+	    
+	    
+	    public Custmer findByName(String name) throws CustmerNameNotFoundException
+	    {
+	    	
+	    	Custmer c2 = repo.findByName(name);
+	    	
+	    	if(c2!=null)
+	    	{
+	    		return c2;
+	    	}
+	    	
+	    	else {
+	    		    
+	    		    throw new CustmerNameNotFoundException("Custmer Name not Found with the name :"+name);
+	    	}
 	    }
 }
 

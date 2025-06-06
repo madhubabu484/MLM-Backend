@@ -12,5 +12,7 @@ public interface custmerrepo extends JpaRepository<Custmer, Integer> {
 	// Custamized Quries
 	
 	  public Custmer  findByEmail(String email);
+	  
+	  public Custmer  findByName(String name);
 
 }

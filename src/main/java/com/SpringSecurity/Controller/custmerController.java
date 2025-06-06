@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SpringSecurity.CustomExceptions.CustmerNameNotFoundException;
 import com.SpringSecurity.Entity.Custmer;
 import com.SpringSecurity.Service.custmerservice;
 
@@ -72,9 +74,33 @@ public class custmerController {
 	
 	@GetMapping("/custmer")
 	public ResponseEntity<?> findByid(@RequestParam("cid") int cid) {
-	    Custmer c2 = service.findByid(cid); // make sure this method works
-
+	    Custmer c2 = service.findByid(cid);
 	    return ResponseEntity.status(HttpStatus.FOUND).body(c2);
 
 }
+	@GetMapping("/findbyname")
+	public ResponseEntity<?> findbyname(@RequestParam("name")String name)throws CustmerNameNotFoundException
+	{
+	
+	            Custmer c1 = service.findByName(name);
+		 
+		 if(c1!=null)
+		 {
+			 return ResponseEntity.status(HttpStatus.FOUND)
+					              .body("Custmer found with his Name: "+name);
+		 }
+		 
+		 
+		 else {
+			 
+			     return ResponseEntity.status(HttpStatus.NOT_FOUND)
+			    		              .body("Custmer Not found with his Name: "+name);
+			    	 
+			    		 
+		 }
+		 
+	}
+	
 }
+
+
