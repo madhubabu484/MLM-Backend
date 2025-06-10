@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.SpringSecurity.CustomExceptions.CustmerNameNotFoundException;
 import com.SpringSecurity.Entity.Custmer;
 import com.SpringSecurity.Service.custmerservice;
-import com.SpringSecurity.exception.CustmerNameNotFoundException;
 
 @RestController
 public class custmerController {
@@ -46,12 +46,9 @@ public class custmerController {
 		else {
 
 			return new ResponseEntity<String>("Falied",HttpStatus. BAD_REQUEST);		
-
-
 		}
-
-
 	}
+	
 	@PostMapping("/register")
 	public ResponseEntity<String> registercustmer(@RequestBody Custmer c )
 	{ 
@@ -69,47 +66,45 @@ public class custmerController {
 		}
 
 	}
-	
+
 	@GetMapping("/custmer")
 	public ResponseEntity<?> findByid(@RequestParam("cid") int cid) {
-	    Custmer c2 = service.findByid(cid); // make sure this method works
+		Custmer c2 = service.findByid(cid);
+		return ResponseEntity.status(HttpStatus.FOUND).body(c2);
 
-	    return ResponseEntity.status(HttpStatus.FOUND).body(c2);
-
-}
+	}
+	
 	@GetMapping("/findbyname")
 	public ResponseEntity<?> findbyname(@RequestParam("name")String name)throws CustmerNameNotFoundException
 	{
-	
-	            Custmer c1 = service.findByName(name);
-		 
-		 if(c1!=null)
-		 {
-			 return ResponseEntity.status(HttpStatus.FOUND)
-					              .body("Custmer found with his Name: "+name);
-		 }
-		 
-		 
-		 else {
-			 
-			     return ResponseEntity.status(HttpStatus.NOT_FOUND)
-			    		              .body("Custmer Not found with his Name: "+name);
-			    	 
-			    		 
-		 }
-		 
-		  
-}
-	
+
+		Custmer c1 = service.findByName(name);
+
+		if(c1!=null)
+		{
+			return ResponseEntity.status(HttpStatus.FOUND)
+					.body("Custmer found with his Name: "+name);
+		}
+
+
+		else {
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND)
+					.body("Custmer Not found with his Name: "+name);
+		}
+	}
+
 	@GetMapping("/greet")
 	public ResponseEntity<String> welcome(OAuth2AuthenticationToken authentication) 
 	{
-	    String name = authentication.getPrincipal().getAttribute("name");
-	    
-	    String provider = authentication.getAuthorizedClientRegistrationId(); 
-	    
-	    return ResponseEntity.ok("Welcome " + name + "! You are logged in with " + provider + ".");
+		String name = authentication.getPrincipal().getAttribute("name");
+
+		String provider = authentication.getAuthorizedClientRegistrationId(); 
+
+		return ResponseEntity.ok("Welcome " + name + "! You are logged in with " + provider + ".");
 	}
 
-	
 }
+
+
+

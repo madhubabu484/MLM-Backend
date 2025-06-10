@@ -56,7 +56,7 @@ public class AppConfiguration {
 	{
 		
 		http.authorizeHttpRequests(req->{
-			req.requestMatchers("/custmer/**")
+			req.requestMatchers("/findbyname")
 			.permitAll()
 			.anyRequest()
 			.authenticated();
