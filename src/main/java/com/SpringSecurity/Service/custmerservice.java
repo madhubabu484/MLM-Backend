@@ -56,7 +56,6 @@ public class custmerservice implements UserDetailsService {
 	        return c1;
 	    }
 	    
-	    
 	    public Custmer findByName(String name) throws CustmerNameNotFoundException
 	    {
 	    	
