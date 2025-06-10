@@ -61,7 +61,9 @@ public class AppConfiguration {
 			.anyRequest()
 			.authenticated();
 
-		  });
+		  })
+		.oauth2Login(oauth -> oauth
+				   .defaultSuccessUrl("/greet"));
 		    return http.csrf().disable().build();
 	}
 }
