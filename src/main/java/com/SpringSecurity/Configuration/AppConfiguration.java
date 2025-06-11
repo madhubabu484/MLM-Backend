@@ -56,7 +56,7 @@ public class AppConfiguration {
 	{
 		
 		http.authorizeHttpRequests(req->{
-			req.requestMatchers("/findbyname")
+			req.requestMatchers("/verifypassword")
 			.permitAll()
 			.anyRequest()
 			.authenticated();

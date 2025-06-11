@@ -1,5 +1,7 @@
 package com.SpringSecurity.Entity;
 
+import com.SpringSecurity.Customgenaratorid.CustomGenarator;
+
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +27,15 @@ public class Custmer {
 
     @Column(name = "password")
     private String password;
+    
+    
+    public void genaratorid()
+    {
+    	
+    	if(this.cid ==null)
+    	{
+    		this.cid= CustomGenarator.getNextId();
+    		System.out.println("Generated ID: " + cid);
+    	}
+    }
 }
